@@ -21,4 +21,18 @@ public class QuestionService {
         return quizRepo.findAll();
     }
 
+    public List<Question> getQuestionsByCategory(String category) {
+
+        return quizRepo.findAllByCategory(category);
+
+    }
+
+    public Question createQuestion(Question question) {
+        return quizRepo.save(question);
+    }
+
+    public List<Question> createQuestions(List<Question> questions)
+    {
+        return quizRepo.saveAll(questions);
+    }
 }
