@@ -4,6 +4,7 @@ import com.ogbuilds.QuizApp.Controller.QuizController;
 import com.ogbuilds.QuizApp.Model.Question;
 import com.ogbuilds.QuizApp.Model.QuestionWrapper;
 import com.ogbuilds.QuizApp.Model.Quiz;
+import com.ogbuilds.QuizApp.Model.Response;
 import com.ogbuilds.QuizApp.Repository.QuestionRepo;
 import com.ogbuilds.QuizApp.Repository.QuizRepo;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuizService {
@@ -54,5 +56,22 @@ public class QuizService {
         }
 
         return new ResponseEntity<>(questionsForUser, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Integer> calculateResult(int id, List<Response> responses) {
+
+        Optional<Quiz> quiz=quizRepo.findById(id);
+        List<Question> questions=quiz.get().getQuestions();
+        int right=0;
+        int i=0;
+        for(Response response : responses)
+        {
+            if(response.getResponse().equals(questions.get(i).getRightanswer()))
+            {
+                right++;
+            }
+            i++;
+        }
+        return new ResponseEntity<>(right,HttpStatus.OK);
     }
 }

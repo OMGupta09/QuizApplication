@@ -1,6 +1,7 @@
 package com.ogbuilds.QuizApp.Controller;
 
 import com.ogbuilds.QuizApp.Model.QuestionWrapper;
+import com.ogbuilds.QuizApp.Model.Response;
 import com.ogbuilds.QuizApp.Service.QuizService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,12 @@ public class QuizController {
     public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(@PathVariable int id)
     {
         return quizService.getQuizQuestions(id);
+    }
+
+    @PostMapping("/submit/{id}")
+    public ResponseEntity<Integer> submitQuiz(@PathVariable int id, @RequestBody List<Response> responses)
+    {
+        return quizService.calculateResult(id,responses);
     }
 
 }
