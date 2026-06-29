@@ -1,7 +1,7 @@
 package com.ogbuilds.QuizApp.Service;
 
 import com.ogbuilds.QuizApp.Model.Question;
-import com.ogbuilds.QuizApp.Repository.QuizRepo;
+import com.ogbuilds.QuizApp.Repository.QuestionRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,30 +9,30 @@ import java.util.List;
 @Service
 public class QuestionService {
 
-    private QuizRepo quizRepo;
+    private QuestionRepo questionRepo;
 
-    public QuestionService(QuizRepo quizRepo)
+    public QuestionService(QuestionRepo questionRepo)
     {
-        this.quizRepo=quizRepo;
+        this.questionRepo = questionRepo;
     }
 
     public List<Question> getAllquestions()
     {
-        return quizRepo.findAll();
+        return questionRepo.findAll();
     }
 
     public List<Question> getQuestionsByCategory(String category) {
 
-        return quizRepo.findAllByCategory(category);
+        return questionRepo.findAllByCategory(category);
 
     }
 
     public Question createQuestion(Question question) {
-        return quizRepo.save(question);
+        return questionRepo.save(question);
     }
 
     public List<Question> createQuestions(List<Question> questions)
     {
-        return quizRepo.saveAll(questions);
+        return questionRepo.saveAll(questions);
     }
 }
